@@ -98,7 +98,7 @@
   </head>
   <body>
     <div class="frame">
-      <h2>Coming September 7th</h2>
+      <h2>Coming Soon..</h2>
       <div id="countdown">
         <div class="countdown-row">
           <div class="countdown-item">
@@ -126,17 +126,17 @@
     <script>
       // Set the countdown target date to September 7th of the current year
       const currentYear = new Date().getFullYear();
-      const countDownDate = new Date(currentYear, 8, 7).getTime(); // Note: month is 0-indexed, so 8 is September
+      let countDownDate = new Date(currentYear, 8, 7).getTime(); // September 7th
 
       // Speed multiplier (higher value = faster countdown)
-      const speedMultiplier = 5000;
+      const speedMultiplier = 100;
 
-      // Update the countdown every 5 milliseconds
+      // Update the countdown every 10 milliseconds
       let countdownFunction = setInterval(function () {
         let now = new Date().getTime();
         let distance = countDownDate - now;
 
-        // Decrease the time faster
+        // Fast forward the countdown using the speedMultiplier
         distance -= 1000 * speedMultiplier;
 
         // If the countdown is finished, start over from next year
@@ -167,7 +167,7 @@
         document.getElementById("seconds").innerHTML = seconds
           .toString()
           .padStart(2, "0");
-      }, 5); // Update every 5 milliseconds for even smoother animation
+      }, 10); // Update every 10 milliseconds for faster animation
     </script>
   </body>
 </html>
