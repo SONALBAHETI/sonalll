@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ultra-Fast Luxury Countdown Timer</title>
+    <style>
+      @import url("https://fonts.cdnfonts.com/css/garet");
+
+      body {
+        font-family: Garet, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: url("https://cdn.shopify.com/s/files/1/0569/9521/7541/files/JSB_STONEX_35.png?v=1725544451")
+          no-repeat center center fixed;
+        background-size: cover;
+        text-align: center;
+      }
+
+      .frame {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 300;
+        margin: 0 0 20px;
+        background: linear-gradient(90deg, #bb984d, #f5eb9b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      #countdown {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .countdown-row {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .countdown-item {
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px solid #bb984d;
+        backdrop-filter: blur(5px);
+        color: #bb984d;
+        background: rgba(255, 255, 255, 0.1);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .countdown-item span {
+        font-size: 2rem;
+        color: #bb984d;
+        display: block;
+      }
+
+      .countdown-item .label {
+        font-size: 1rem;
+        margin-top: 5px;
+      }
+
+      @media (max-width: 480px) {
+        h2 {
+          font-size: 1.8rem;
+        }
+
+        .countdown-item {
+          padding: 8px;
+        }
+
+        .countdown-item span {
+          font-size: 1.6rem;
+        }
+
+        .countdown-item .label {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <h2>Coming September 7th</h2>
+      <div id="countdown">
+        <div class="countdown-row">
+          <div class="countdown-item">
+            <span id="days">00</span>
+            <div class="label">Days</div>
+          </div>
+          <div class="countdown-item">
+            <span id="hours">00</span>
+            <div class="label">Hours</div>
+          </div>
+        </div>
+        <div class="countdown-row">
+          <div class="countdown-item">
+            <span id="minutes">00</span>
+            <div class="label">Minutes</div>
+          </div>
+          <div class="countdown-item">
+            <span id="seconds">00</span>
+            <div class="label">Seconds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Set the countdown target date to September 7th of the current year
+      const currentYear = new Date().getFullYear();
+      const countDownDate = new Date(currentYear, 8, 7).getTime(); // Note: month is 0-indexed, so 8 is September
+
+      // Speed multiplier (higher value = faster countdown)
+      const speedMultiplier = 5000;
+
+      // Update the countdown every 5 milliseconds
+      let countdownFunction = setInterval(function () {
+        let now = new Date().getTime();
+        let distance = countDownDate - now;
+
+        // Decrease the time faster
+        distance -= 1000 * speedMultiplier;
+
+        // If the countdown is finished, start over from next year
+        if (distance < 0) {
+          const nextYear = currentYear + 1;
+          countDownDate = new Date(nextYear, 8, 7).getTime();
+          distance = countDownDate - now;
+        }
+
+        // Calculate days, hours, minutes, and seconds
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the respective elements
+        document.getElementById("days").innerHTML = days
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("hours").innerHTML = hours
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("minutes").innerHTML = minutes
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("seconds").innerHTML = seconds
+          .toString()
+          .padStart(2, "0");
+      }, 5); // Update every 5 milliseconds for even smoother animation
+    </script>
+  </body>
+</html>
